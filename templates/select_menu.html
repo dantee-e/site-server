@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Server Menu</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 500px;
+      width: 100%;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+      font-size: 2em;
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .menu-item {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      border-radius: 12px;
+      padding: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .menu-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+    }
+
+    .menu-item:active {
+      transform: translateY(-2px);
+    }
+
+    .icon {
+      font-size: 2.5em;
+      width: 60px;
+      height: 60px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .content {
+      flex: 1;
+    }
+
+    .title {
+      font-size: 1.4em;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .description {
+      font-size: 0.9em;
+      opacity: 0.9;
+    }
+
+    .ssh {
+      background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    }
+
+    .ssh:hover {
+      box-shadow: 0 8px 25px rgba(67, 233, 123, 0.6);
+    }
+
+    .jellyfin {
+      background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    }
+
+    .jellyfin:hover {
+      box-shadow: 0 8px 25px rgba(250, 112, 154, 0.6);
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 25px;
+      }
+
+      h1 {
+        font-size: 1.5em;
+      }
+
+      .menu-item {
+        padding: 20px;
+      }
+
+      .icon {
+        font-size: 2em;
+        width: 50px;
+        height: 50px;
+      }
+
+      .title {
+        font-size: 1.2em;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Server Menu</h1>
+    <div class="menu">
+      <!-- <a href="#" class="menu-item ssh" id="ssh-btn"> -->
+      <!--   <div class="icon">🔐</div> -->
+      <!--   <div class="content"> -->
+      <!--     <div class="title">SSH Access</div> -->
+      <!--     <div class="description">Secure shell connection</div> -->
+      <!--   </div> -->
+      <!-- </a> -->
+      <a href="/jellyfin" class="menu-item jellyfin" id="jellyfin-btn">
+        <div class="icon">🎬</div>
+        <div class="content">
+          <div class="title">Jellyfin</div>
+          <div class="description">Media streaming server</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+</body>
+
+</html>
