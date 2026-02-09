@@ -1,4 +1,6 @@
 import httpx
+import os
+from contextlib import asynccontextmanager
 from httpx import AsyncClient
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, StreamingResponse
@@ -6,11 +8,34 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.background import BackgroundTask
 
-app = FastAPI()
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    global JELLYFIN
+    print("printing")
+
+    jellyfin_path = os.path.join(services_folder, "jellyfin")
+    if os.path.isfile(jellyfin_path):
+        print("Found jellyfin file ")
+        with open(jellyfin_path, "r") as f:
+            port = f.readline().strip()
+            JELLYFIN = AsyncClient(base_url=f"http://localhost:{port}/")
+    else:
+        print("No jellyfin file found")
+
+    yield
+
+
+app = FastAPI(lifespan=lifespan)
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 templates = Jinja2Templates(directory="templates")
+
+services_folder = os.path.join(os.curdir, "services")
+
+# defaults
+JELLYFIN = AsyncClient(base_url="http://localhost:8096/")
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -46,9 +71,6 @@ async def _reverse_proxy(
         headers=headers,
         background=BackgroundTask(rp_resp.aclose),
     )
-
-
-JELLYFIN = AsyncClient(base_url="http://localhost:8096/")
 
 
 # For each service, add an api_route like the one underneath  and call
